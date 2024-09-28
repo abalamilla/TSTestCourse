@@ -8,15 +8,36 @@ describe("Utils test suite", () => {
       sut = new StringUtils();
     });
 
-    afterEach(() => {
-      // cleanup
-      console.log("cleanup");
-    });
-
     it("Should retrn correct upper case", () => {
       const actual = sut.toUpperCase("hello");
 
       expect(actual).toBe("HELLO");
+    });
+
+    it("should throw error on invalid argument - function", () => {
+      function expectError() {
+        const actual = sut.toUpperCase("");
+        return actual;
+      }
+
+      expect(expectError).toThrow();
+      expect(expectError).toThrowError("Invalid input");
+    });
+
+    it("should throw error on invalid argument - arrow", () => {
+      expect(() => sut.toUpperCase("")).toThrow();
+      expect(() => sut.toUpperCase("")).toThrowError("Invalid input");
+    });
+
+    it("should throw error on invalid argument - try/catch", () => {
+      try {
+        sut.toUpperCase("");
+
+        fail("GetStringInfo should throw an error");
+      } catch (error) {
+        expect(error).toBeInstanceOf(Error);
+        expect(error).toHaveProperty("message", "Invalid input");
+      }
     });
   });
 
