@@ -8,29 +8,44 @@ describe("Utils test suite", () => {
 
     // act
     const actual = sut("hello");
-    //
+
     // assert
     expect(actual).toBe(expected);
   });
 
-  it("should return info for valid string", () => {
-    const actual = getStringInfo("Hello");
+  describe("getStringInfo for arg 'Hello'", () => {
+    test("return right length", () => {
+      const actual = getStringInfo("Hello");
+      expect(actual.characters).toHaveLength(5);
+    });
 
-    expect(actual.lowerCase).toBe("hello");
-    expect(actual.extraInfo).toEqual({});
+    test("return right lowerCase", () => {
+      const actual = getStringInfo("Hello");
+      expect(actual.lowerCase).toBe("hello");
+    });
 
-    expect(actual.characters.length).toBe(5);
-    expect(actual.characters).toHaveLength(5);
+    test("return right upperCase", () => {
+      const actual = getStringInfo("Hello");
+      expect(actual.upperCase).toBe("HELLO");
+    });
 
-    expect(actual.characters).toEqual(["H", "e", "l", "l", "o"]);
-    expect(actual.characters).toContain<string>("H");
-    expect(actual.characters).toEqual(
-      expect.arrayContaining(["e", "H", "o", "l"])
-    );
+    test("return right characters", () => {
+      const actual = getStringInfo("Hello");
+      expect(actual.characters).toEqual(["H", "e", "l", "l", "o"]);
+      expect(actual.characters).toContain<string>("H");
+      expect(actual.characters).toEqual(
+        expect.arrayContaining(["e", "H", "o", "l"]),
+      );
+    });
 
-    expect(actual.extraInfo).not.toBe(undefined);
-    expect(actual.extraInfo).not.toBeUndefined();
-    expect(actual.extraInfo).toBeDefined();
-    expect(actual.extraInfo).toBeTruthy();
+    test("return defined extraInfo", () => {
+      const actual = getStringInfo("Hello");
+      expect(actual.extraInfo).toBeDefined();
+    });
+
+    test("return right extraInfo", () => {
+      const actual = getStringInfo("Hello");
+      expect(actual.extraInfo).toEqual({});
+    });
   });
 });
